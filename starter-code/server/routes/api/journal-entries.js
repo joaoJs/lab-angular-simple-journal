@@ -6,7 +6,7 @@ router.get('/journal-entries', (req, res, next) => {
   Entry.find({}, (err, entries) => {
     if (err) { return res.json(err).status(500); }
 
-    return res.json(entries);
+    return res.status(200).json(entries);
   });
 });
 
@@ -26,8 +26,9 @@ router.post('/journal-entries', (req, res, next) => {
   });
 
   newEntry.save( (err) => {
-    if (err)             { return res.status(500).json(err) }
-    if (newEntry.errors) { return res.status(400).json(newEntry) }
+    if (err)             { return res.status(500).json(err); }
+    if (newEntry.errors) { return res.status(400).json(newEntry); }
+              
                            return res.json(newEntry);
   });
 });
